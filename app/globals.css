@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-pagination-bullet-active {
+  background-color: #1cbc67 !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+@layer utilities {
+  .radical-gradient {
+    @apply !bg-[radial-gradient(circle,_var(--tw-gradient-stops))];
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+}
