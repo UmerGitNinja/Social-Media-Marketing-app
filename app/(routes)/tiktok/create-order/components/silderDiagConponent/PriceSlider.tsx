@@ -1,6 +1,4 @@
 "use client"
-
-import useOrderMenu from '@/hooks/useOrderMenu';
 import Slider from '@mui/material/Slider';
 
 interface PriceSliderProps {
