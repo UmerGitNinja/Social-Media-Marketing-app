@@ -3,35 +3,35 @@ import PromotionBtn from "../shared/PromotionBtn";
 
 const data = [
   {
-    icon: "/images/star1.webp",
+    icon: "/Images/star1.webp",
     title: "Affordable Rates",
   },
   {
-    icon: "/images/flash.webp",
+    icon: "/Images/flash.webp",
     title: "Organic & safe",
   },
   {
-    icon: "/images/clipboard.webp",
+    icon: "/Images/clipboard.webp",
     title: "Performance Guarantee",
   },
   {
-    icon: "/images/star2.webp",
+    icon: "/Images/star2.webp",
     title: "4.4 on Trustpilot",
   },
   {
-    icon: "/images/efficiency.webp",
+    icon: "/Images/efficiency.webp",
     title: "User Dashboard",
   },
   {
-    icon: "/images/pie-chart.webp",
+    icon: "/Images/pie-chart.webp",
     title: "Dedicated Manager",
   },
   {
-    icon: "/images/warning.webp",
+    icon: "/Images/warning.webp",
     title: "Works for all channels",
   },
   {
-    icon: "/images/custom-support.webp",
+    icon: "/Images/custom-support.webp",
     title: "24/7 Customer Support",
   },
 ];
