@@ -8,7 +8,7 @@ const HowToGetStarted = () => {
     <section className="flex justify-between gap-10 items-center flex-col p-8">
       <div className="flex-center max-md:text-center max-md:flex-col p-4 gap-8 max-w-[640px]">
         <Image
-          src={"/images/alexa.webp"}
+          src={"/Images/alexa.webp"}
           alt="img"
           width={200}
           height={100}
@@ -26,7 +26,7 @@ const HowToGetStarted = () => {
 
       <div className="flex justify-between items-center max-lg:text-center max-lg:flex-col-reverse gap-10 ">
         <SharedText
-          image="/images/how-to-get-started.webp"
+          image="/Images/how-to-get-started.webp"
           subheading="Only 3 easy steps!"
           heading="How to get started"
           description=" Getting started with us has never been easier. First, simply select your
