@@ -39,7 +39,6 @@ const OrderMenu: React.FC = () => {
         />
         <OrderList
           ListThree
-          CreatorId={CreaterData?.id || ""}
           disable={
             (total === 0) || (FollowersValue !== 0 && total === 0)
           }
@@ -52,7 +51,6 @@ const OrderMenu: React.FC = () => {
           disable={total > 0 ? tweetsCount <= 1 : FollowersValue <= 0}
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}
-          CreatorName={CreaterData?.name || ""}
         />
       </div>
     </div>

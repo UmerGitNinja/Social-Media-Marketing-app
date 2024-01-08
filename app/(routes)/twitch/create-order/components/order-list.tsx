@@ -31,7 +31,7 @@ import {
   LiveStreamViewersPrices,
 } from "@/lib/twitch-Prices";
 import FindIndex from "@/actions/find-index-price";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PriceSlider from "./silderDiagConponent/PriceSlider";
 import VideosMenu from "./video-menu";
 import { TwitchHighlight } from "@/types";
@@ -93,24 +93,34 @@ const OrderList: React.FC<OrderListProps> = ({
 
   const Discount = limitDecimalPlaces(total * 0.05, 2);
   const OrderTotal = limitDecimalPlaces(total - Discount, 2);
-
-  const router = useRouter();
+  const searchParams = useSearchParams()
+  const ProfileUrl = searchParams.get("Url")
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post("/api/create-order", {
+      const createOrderResponse = await axios.post("/api/twitch-order", {
         OrderTotal,
         ViewsValue,
         LiveValue,
         FollowerValue,
         HourViewValue,
         StreamerName,
+        ProfileUrl,
         Email,
         checkedVideos,
+        API_KEY
       });
-      router.refresh();
-      toast.success("Test success");
+      const OrderId = createOrderResponse?.data?.id;
+      const response = await axios.post("http://localhost:3001/api/checkout", {
+        OrderTotal,
+        API_KEY,
+        OrderId,
+        ServiceName: "Twitch service",
+      });
+
+      window.location = response.data?.url;
     } catch (error) {
       toast.error("something went wrong");
       console.log(error);

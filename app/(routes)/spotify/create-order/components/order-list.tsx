@@ -37,7 +37,7 @@ import {
 } from "@/lib/Prices";
 import useSpotifyMenu from "@/hooks/useSpotifyMenu";
 import FindIndex from "@/actions/find-index-price";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PriceSlider from "./silderDiagConponent/PriceSlider";
 
 interface OrderListProps {
@@ -76,7 +76,7 @@ const OrderList: React.FC<OrderListProps> = ({
     ListenerValue,
     FollowerValue,
     SaveValue,
-    checkedSongs
+    checkedSongs,
   } = useSpotifyMenu();
   const [Album, setAlbum] = useState(true);
   const { albums, epsData } = GetArtistAlbumsAndSongs(ArtistId || "");
@@ -84,7 +84,7 @@ const OrderList: React.FC<OrderListProps> = ({
   const AlbumData: Album[] = albums;
   const EpsData: Album[] = epsData?.items;
   const [AlbumId, setAlbumId] = useState("");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [Eps, setEps] = useState("");
 
   const FilteredAlbum = AlbumData.filter(
@@ -102,33 +102,42 @@ const OrderList: React.FC<OrderListProps> = ({
     PlaysPrices[PlayPrice] * (songsCount - 1) +
     FollowerPrices[FollowerPrice] +
     MonthlyListenerPrices[MonthlyListenerPrice] +
-    SavesPrice[SavePrice] * (songsCount - 1) ;
-
+    SavesPrice[SavePrice] * (songsCount - 1);
+  const searchParams = useSearchParams();
+  const ProfileUrl = searchParams.get("Url");
   const Discount = limitDecimalPlaces(total * 0.05, 2);
-  const OrderTotal = limitDecimalPlaces(total  - Discount, 2);
-
-  const router = useRouter();
+  const OrderTotal = limitDecimalPlaces(total - Discount, 2);
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      await axios.post("/api/create-order", {
+      const createOrderResponse = await axios.post("/api/spotify-order", {
         OrderTotal,
         PlayValue,
         SaveValue,
         FollowerValue,
         ListenerValue,
         ArtistName,
+        ProfileUrl,
         Email,
-        checkedSongs
+        checkedSongs,
+        API_KEY,
       });
-      router.refresh();
-      toast.success("Test success");
+      const OrderId = createOrderResponse?.data?.id;
+      const response = await axios.post("http://localhost:3001/api/checkout", {
+        OrderTotal,
+        API_KEY,
+        OrderId,
+        ServiceName: "Spotify service",
+      });
+
+      window.location = response.data?.url;
     } catch (error) {
       toast.error("something went wrong");
       console.log(error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -186,7 +195,10 @@ const OrderList: React.FC<OrderListProps> = ({
                     ${PlaysPrices[PlayPrice]}
                   </span>
                 </div>
-                <PriceSlider setValue={setPlaysValue} ValueArray={PlaysCustomMarks}/>
+                <PriceSlider
+                  setValue={setPlaysValue}
+                  ValueArray={PlaysCustomMarks}
+                />
               </div>
               <div className="pt-4">
                 <div className="flex justify-between gap-2 items-center">
@@ -209,7 +221,10 @@ const OrderList: React.FC<OrderListProps> = ({
                     ${FollowerPrices[FollowerPrice]}
                   </span>
                 </div>
-               <PriceSlider setValue={setFollowerValue} ValueArray={FollowerCustomMarks}/>
+                <PriceSlider
+                  setValue={setFollowerValue}
+                  ValueArray={FollowerCustomMarks}
+                />
               </div>
               <div className="pt-4">
                 <div className="flex justify-between gap-2 items-center">
@@ -232,7 +247,10 @@ const OrderList: React.FC<OrderListProps> = ({
                     ${MonthlyListenerPrices[MonthlyListenerPrice]}
                   </span>
                 </div>
-               <PriceSlider setValue={setListenerValue} ValueArray={MonthlyListenerCustomMarks}/>
+                <PriceSlider
+                  setValue={setListenerValue}
+                  ValueArray={MonthlyListenerCustomMarks}
+                />
               </div>
               <div className="pt-4">
                 <div className="flex justify-between gap-2 items-center">
@@ -254,7 +272,10 @@ const OrderList: React.FC<OrderListProps> = ({
                     ${SavesPrice[SavePrice]}
                   </span>
                 </div>
-                <PriceSlider setValue={setSavesValue} ValueArray={SaveCustomMarks}/>
+                <PriceSlider
+                  setValue={setSavesValue}
+                  ValueArray={SaveCustomMarks}
+                />
               </div>
               <span className="text-sm text-white py-3 border-b-[1px] border-green-500">
                 Plays and saves are calculated for each song you select in the
@@ -279,7 +300,7 @@ const OrderList: React.FC<OrderListProps> = ({
                     ? "Next: Confirm Details"
                     : "Next: Select Songs"
                 }
-                disabled={total === 0 && PlayValue === 0 && SaveValue === 0 }
+                disabled={total === 0 && PlayValue === 0 && SaveValue === 0}
                 onClick={() => {
                   ((FollowerValue as number) > 1 || ListenerValue > 1) &&
                   SaveValue === 0 &&
@@ -478,7 +499,11 @@ const OrderList: React.FC<OrderListProps> = ({
                   }
                 />
               </FormGroup>
-              <Button Label="Continue to Payment" disabled={isLoading} className="self-center" />
+              <Button
+                Label="Continue to Payment"
+                disabled={isLoading}
+                className="self-center"
+              />
               <p className="text-white text-xs text-light self-center mt-4">
                 By clicking Pay button you agree to our
                 <a href="#" className="text-green-500 ml-1 underline">

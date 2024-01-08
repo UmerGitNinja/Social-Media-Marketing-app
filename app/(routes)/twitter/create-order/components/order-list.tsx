@@ -43,8 +43,6 @@ interface OrderListProps {
   defaultExpanded?: boolean;
   onChange?: (event?: React.SyntheticEvent, isExpanded?: boolean) => void;
   onButtonClick?: (panel: string) => void;
-  CreatorId?: string;
-  CreatorName?: string;
   ListTwo?: boolean;
   ListThree?: boolean;
   ListFour?: boolean;
@@ -56,7 +54,6 @@ const OrderList: React.FC<OrderListProps> = ({
   defaultExpanded,
   expanded,
   onChange,
-  CreatorName,
   ListTwo,
   ListThree,
   ListFour,
@@ -82,6 +79,7 @@ const OrderList: React.FC<OrderListProps> = ({
   const { UserTweets } = useUserTweets(createrId || undefined);
   const UserData: TwitterData[] = UserTweets;
   const is_protected = searchParams.get("Private");
+  const CreatorName = searchParams.get("label")
   const ViewsPrice = FindIndex(ViewCustomMarks, ViewsValue);
   const FollowersPrice = FindIndex(FollowerCustomMarks, FollowersValue);
   const LikesPrice = FindIndex(LikeCustomMarks, LikesValue);
@@ -94,16 +92,16 @@ const OrderList: React.FC<OrderListProps> = ({
       CommentPrices[CommentsPrice]) *
       (tweetsCount - 1) +
     FollowerPrices[FollowersPrice];
-
+  const ProfileUrl = searchParams.get("Url")
   const Discount = limitDecimalPlaces(total * 0.05, 2);
   const OrderTotal = limitDecimalPlaces(total - Discount, 2);
 
-  const router = useRouter();
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post("/api/create-order", {
+      const createOrderResponse =    await axios.post("/api/twitter-order", {
         OrderTotal,
         ViewsValue,
         RetweetsValue,
@@ -111,11 +109,20 @@ const OrderList: React.FC<OrderListProps> = ({
         CommentsValue,
         FollowersValue,
         CreatorName,
+        ProfileUrl,
         Email,
         checkedTweets,
+        API_KEY
       });
-      router.refresh();
-      toast.success("Test success");
+      const OrderId = createOrderResponse?.data?.id
+      const response = await axios.post("http://localhost:3001/api/checkout", {
+         OrderTotal,
+         API_KEY,
+         OrderId,
+         ServiceName: "Twitter service"
+       })
+ 
+       window.location = response.data?.url;
     } catch (error) {
       toast.error("something went wrong");
       console.log(error);

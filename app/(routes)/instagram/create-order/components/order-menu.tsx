@@ -60,7 +60,7 @@ const OrderMenu: React.FC<OrderMenuProps> = ({
           disable={total > 0 ? postsCount <= 1 : FollowersValue <= 0}
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}
-         ArtistName={ArtistName}
+         UserName={ArtistName}
         />
       </div>
     </div>

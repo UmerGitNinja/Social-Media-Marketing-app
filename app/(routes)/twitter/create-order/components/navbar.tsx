@@ -10,7 +10,7 @@ const Navbar = () => {
   const router = useRouter()
   return (
     <nav className="w-full h-20 flex items-center justify-between pl-8 shadow-md bg-[#020d14]">
-      <button onClick={()=> router.push("/")} className="text-neutral-500 flex items-center"><IoChevronBack size={20}/>Back</button>
+      <button onClick={()=> router.push("/twitter")} className="text-neutral-500 flex items-center"><IoChevronBack size={20}/>Back</button>
       <div className="flex gap-2 justify-center items-center mr-8 lg:mr-[50%]">
         <Image alt="Logo" src={"/logo.svg"} width={25} height={25} />
         <span className="font-bold text-blue-500">Streamkick</span>
