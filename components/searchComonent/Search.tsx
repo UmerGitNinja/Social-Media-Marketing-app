@@ -4,12 +4,14 @@ import { TikTokUser } from "@/types";
 import { useState } from "react";
 import SearchMenu from "./Search-menu";
 import createrFetcher from "@/lib/Creater-fetcher";
+import useQuery from "@/hooks/useQuery";
 interface SearchProps {
   placeholder: string;
+  data?: []
 }
 
-const Search = ({ placeholder }: SearchProps) => {
-  const [Query, setQuery] = useState("");
+const Search = ({ placeholder, data }: SearchProps) => {
+  const { Query, setQuery }= useQuery()
   const [CreatorData, setCreatorData] = useState<TikTokUser[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

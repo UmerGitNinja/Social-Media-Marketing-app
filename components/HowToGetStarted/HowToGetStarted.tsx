@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import PromotionBtn from "../shared/PromotionBtn";
 import SharedText from "../shared/SharedText";
 
 const HowToGetStarted = () => {
@@ -9,7 +7,7 @@ const HowToGetStarted = () => {
       <div className="flex-center max-md:text-center max-md:flex-col p-4 gap-8 max-w-[640px]">
         <Image
           src={"/Images/alexa.webp"}
-          alt="img"
+          alt="alexa"
           width={200}
           height={100}
           className=" rounded-full "
