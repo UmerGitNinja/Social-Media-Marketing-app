@@ -47,13 +47,6 @@ const NavBar = () => {
             </Link>
           ))}
         </div>
-
-        <Link
-          href={"/"}
-          className="bg-green-500 text-black px-4 py-2 rounded-lg font-medium"
-        >
-          My Order
-        </Link>
       </div>
     </nav>
   );

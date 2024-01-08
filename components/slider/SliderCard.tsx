@@ -18,7 +18,7 @@ const SliderCard = ({ imageUrl, name, review }: SliderCardProps) => {
         />
         <div>
           <Image
-            src="/images/stars.webp"
+            src="/Images/stars.webp"
             alt="stars"
             width={150}
             height={30}

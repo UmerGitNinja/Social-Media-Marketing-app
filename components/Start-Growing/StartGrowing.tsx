@@ -14,7 +14,7 @@ const StartGrowing = () => {
         />
       </div>
       <div className="bg-[#182747] rounded-xl">
-        <div className="flex items-center text-center flex-col bg-[url('/images/content-footer-mobile.webp')] lg:bg-[url('/images/content-footer.webp')] bg-no-repeat bg-auto bg-center space-y-4 px-4 py-28">
+        <div className="flex items-center text-center flex-col bg-[url('/Images/content-footer-mobile.webp')] lg:bg-[url('/Images/content-footer.webp')] bg-no-repeat bg-auto bg-center space-y-4 px-4 py-28">
           <h2 className="text-4xl font-semibold text-white">
             Start growing your channels with Viewpals
           </h2>

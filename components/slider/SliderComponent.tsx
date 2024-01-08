@@ -9,44 +9,44 @@ const carddata = [
       "Had some questions and customer support responded within a couple hours. The campaign I ordered was completed within 3 days...",
   },
   {
-    imageUrl: "/images/2.webp",
+    imageUrl: "/Images/2.webp",
     name: "Steve Broderick",
     review:
       "Viewpals is excellent to promote yourself on TikTok, YouTube. I have seen highly noticeable instant results in my stats...",
   },
   {
-    imageUrl: "/images/3.webp",
+    imageUrl: "/Images/3.webp",
     name: "Hector Sanders",
     review:
       "Reliable service - been using them since my friend first recommended.",
   },
   {
-    imageUrl: "/images/4.webp",
+    imageUrl: "/Images/4.webp",
     name: "Harvey D.Blessing",
     review:
       "Reliable service - been using them since my friend first recommended.",
   },
   {
-    imageUrl: "/images/5.webp",
+    imageUrl: "/Images/5.webp",
     name: "Park Jeimi",
     review:
       "Viewpals are very supportive and work to make all transactions quick and to the buyers requirement...",
   },
   {
-    imageUrl: "/images/1.webp",
+    imageUrl: "/Images/1.webp",
     name: "Mary Amundson",
     review:
       "Had some questions and customer support responded within a couple hours. The campaign I ordered was completed within 3 days...",
   },
 
   {
-    imageUrl: "/images/2.webp",
+    imageUrl: "/Images/2.webp",
     name: "Steve Broderick",
     review:
       "Viewpals is excellent to promote yourself on TikTok, YouTube. I have seen highly noticeable instant results in my stats...",
   },
   {
-    imageUrl: "/images/3.webp",
+    imageUrl: "/Images/3.webp",
     name: "Hector Sanders",
     review:
       "Reliable service - been using them since my friend first recommended.",
